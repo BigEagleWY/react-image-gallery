@@ -60,6 +60,29 @@ label {
   border-color: transparent transparent transparent rgba(255, 255, 255, 1);
 }
 
+.audio-play-button {
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 60px;
+  width: 100px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+}
+.audio-play-button img{
+  height:60px;
+}
+
+.audio-play-button:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+
+
 .close-video::before {
   content: '✖';
   cursor: pointer;

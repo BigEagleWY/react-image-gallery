@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import ImageGallery from '../src/ImageGallery';
+import audio from 'audio.png';
+require('http://api.html5media.info/1.1.6/html5media.min.js');
 
 const PREFIX_URL = 'https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/';
 
@@ -41,6 +43,13 @@ class App extends React.Component {
         thumbnailClass: 'featured-thumb',
         description: 'Custom class for slides & thumbnails'
       },
+      {
+        thumbnail: `${PREFIX_URL}4v.jpg`,
+        original: `${PREFIX_URL}4v.jpg`,
+        embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
+        description: 'Render custom slides within the gallery',
+        renderItem: this._renderAudio.bind(this)
+      }
     ].concat(this._getStaticImages());
   }
 
@@ -51,6 +60,9 @@ class App extends React.Component {
       this._imageGallery.pause();
       this._imageGallery.play();
     }
+  }
+  componentDidMount(){
+    console.log(this.images);
   }
 
   _onImageClick(event) {
@@ -130,7 +142,25 @@ class App extends React.Component {
       }
     }
   }
-
+  _renderAudio(item){
+    return (
+      <div className='image-gallery-image'>
+        {
+            <a onClick={this.playAudio.bind(this, item.embedUrl)}>
+              <div className='audio-play-button'>
+                <img src={audio} />
+              </div>
+              <img src={item.original}/>
+            </a>
+        }
+      </div> 
+    );
+  }
+  playAudio(){
+    console.log("play audio");
+    let audio = document.getElementById('audio-player');
+    console.log(audio);
+  }
   _renderVideo(item) {
     return (
       <div className='image-gallery-image'>
@@ -197,7 +227,9 @@ class App extends React.Component {
           slideOnThumbnailHover={this.state.slideOnThumbnailHover}
           additionalClass="app-image-gallery"
         />
-
+        <div className='audio-play'>
+          <audio id='audio-player' src='' />
+        </div>
         <div className='app-sandbox'>
 
           <div className='app-sandbox-content'>
