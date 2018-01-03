@@ -5,7 +5,7 @@ var connect = require('gulp-connect');
 var gulp = require('gulp');
 var livereload = require('gulp-livereload');
 var rename = require('gulp-rename');
-var sass = require('gulp-sass');
+var less = require('gulp-less');
 var uglify = require('gulp-uglify');
 var cleanCSS = require('gulp-clean-css');
 var source = require('vinyl-source-stream');
@@ -26,17 +26,17 @@ gulp.task('server', function () {
   });
 });
 
-gulp.task('sass', function () {
-  gulp.src('./styles/scss/image-gallery.scss')
-    .pipe(sass())
+gulp.task('less', function () {
+  gulp.src('./styles/less/image-gallery.less')
+    .pipe(less())
     .pipe(rename('image-gallery.css'))
     .pipe(gulp.dest('./styles/css/'))
     .pipe(livereload());
 });
 
-gulp.task('sass-no-icon', function () {
-  gulp.src('./styles/scss/image-gallery-no-icon.scss')
-    .pipe(sass())
+gulp.task('less-no-icon', function () {
+  gulp.src('./styles/less/image-gallery-no-icon.less')
+    .pipe(less())
     .pipe(rename('image-gallery-no-icon.css'))
     .pipe(gulp.dest('./styles/css/'))
     .pipe(livereload());
@@ -83,10 +83,10 @@ gulp.task('source-js', function () {
 
 gulp.task('watch', function() {
   livereload.listen();
-  gulp.watch(['styles/**/*.scss'], ['sass']);
+  gulp.watch(['styles/**/*.less'], ['less']);
   gulp.watch(['src/*.jsx', 'example/app.js'], ['scripts']);
 });
 
-gulp.task('dev', ['watch', 'scripts', 'sass', 'server']);
-gulp.task('build', ['source-js', 'sass', 'sass-no-icon']);
+gulp.task('dev', ['watch', 'scripts','less', 'server']);
+gulp.task('build', ['source-js','less','less-no-icon']);
 gulp.task('demo', ['demo-src']);
